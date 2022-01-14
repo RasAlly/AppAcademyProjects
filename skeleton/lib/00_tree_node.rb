@@ -9,11 +9,23 @@ class PolyTreeNode
         @children = []
     end
 
-    # def parent=(node)
-    #     @parent = node
-    #     node.children + @children 
+    def parent=(node)
+        # p node
+        @parent = node 
+        if node != nil
+            node.children << self if !node.children.include?(self)
+        end
+        if node != nil && node.parent != nil 
+            i = node.parent.children.index(self)
+            node.parent.children.delete_at(i)
+        end
+    end
+
+    # def add_child
+    #     parent = self
     # end
 end
 
 # a = PolyTreeNode.new('new_node')
-# p a
+# b = PolyTreeNode.new('different_node')
+# a.parent=(b)
