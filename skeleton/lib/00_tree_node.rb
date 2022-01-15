@@ -17,7 +17,7 @@ class PolyTreeNode
         end
         if node != nil && node.parent != nil 
             i = node.parent.children.index(self)
-            node.parent.children.delete_at(i)
+            node.parent.children.delete_at(i) unless i == nil
         end
     end
 
@@ -28,6 +28,16 @@ class PolyTreeNode
     def remove_child(child)
         raise if child.parent == nil
         child.parent = nil
+    end
+
+    def dfs(target)
+        return self if self.value == target
+    
+        self.children.each do |child|
+            current_value = child.dfs(target)
+            return current_value unless current_value == nil
+        end
+        nil
     end
 end
 
