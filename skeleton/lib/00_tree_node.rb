@@ -21,9 +21,14 @@ class PolyTreeNode
         end
     end
 
-    # def add_child
-    #     parent = self
-    # end
+    def add_child(child)
+        child.parent=(self)
+    end
+
+    def remove_child(child)
+        raise if child.parent == nil
+        child.parent = nil
+    end
 end
 
 # a = PolyTreeNode.new('new_node')
