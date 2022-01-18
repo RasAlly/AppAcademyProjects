@@ -1,8 +1,8 @@
 class Employee
 
-    attr_reader :salary, :name
+    attr_reader :salary, :name, :boss 
 
-    def initialize(name, title, salary, boss = nil)
+    def initialize(name, title, salary, boss)
         @name = name
         @title = title
         @salary = salary

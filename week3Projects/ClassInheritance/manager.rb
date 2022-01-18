@@ -1,7 +1,7 @@
+require_relative "employee.rb"
 class Manager < Employee
-
-    def initialize(name, title, salary, boss)
-        super
+    def initialize(name, title, salary)
+        super(name, title, salary, boss=nil)
         @employees = []
     end
 
@@ -14,8 +14,6 @@ class Manager < Employee
     end
 
     def add_employee(emp)
-        if emp.boss == name
-            @employees << emp
-        end
+        @employees << emp
     end
 end
