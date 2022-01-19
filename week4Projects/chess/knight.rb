@@ -12,7 +12,8 @@ class Knight
     @color
   end
 
-  def move_diffs 
+  def move_diffs # Different moves a knight can do 
+    # Move calls this 
     @curr_pos = @pos 
   end
 end
