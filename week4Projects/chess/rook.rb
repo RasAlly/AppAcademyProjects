@@ -9,9 +9,11 @@ class Rook < Piece
     end
 
     def symbol
-        @color
+       return :R
     end
 
     def move_dirs
+        horizontal_moves
+        vertical_moves(pos[1])
     end
 end

@@ -1,7 +1,7 @@
 require_relative 'piece'
 require_relative 'stepable'
 
-class Knight 
+class Knight < Piece
   include Stepable 
 
   def initialize(color, board, pos)
@@ -9,11 +9,12 @@ class Knight
   end
 
   def symbol
-    @color
+    return :KN
   end
 
   def move_diffs # Different moves a knight can do 
     # Move calls this 
-    @curr_pos = @pos 
+   positions = [[1, 2], [2, 1], [-1, 2], [-2, 1], [1, -2], [2, -1], [-1, -2], [-2, -1]]
+    moves(@pos, positions)
   end
 end

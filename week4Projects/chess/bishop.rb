@@ -9,9 +9,10 @@ class Bishop < Piece
     end
 
     def symbol
-        @color
+        return :B
     end
 
     def move_dirs
+        diagonal_moves(pos[1])
     end
 end

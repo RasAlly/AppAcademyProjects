@@ -9,9 +9,12 @@ class Queen < Piece
     end
 
     def symbol
-        @color
+       return :Q 
     end
 
     def move_dirs
+        horizontal_moves
+        vertical_moves(pos[1])
+        diagonal_moves(pos[1])
     end
 end

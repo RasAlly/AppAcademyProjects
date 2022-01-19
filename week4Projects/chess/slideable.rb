@@ -1,16 +1,18 @@
 module Slideable
-    HORIZONTAL_DIRS = []
-    DIAGNOL_DIRS = []
+    HORIZONTAL_DIRS = [[0,1], [0, -1]]
+    VERTICAL_DIRS = [[1,0], [-1, 0]]
+    DIAGNOL_DIRS = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
 
     def horizontal_dirs
         HORIZONTAL_DIRS
     end
+    
+    def vertical_dirs
+        VERTICAL_DIRS
+    end
 
     def diagnol_dirs 
         DIAGNOL_DIRS
-    end
-
-    def moves 
     end
 
     def horizontal_moves 

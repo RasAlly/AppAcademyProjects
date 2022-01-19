@@ -1,9 +1,13 @@
+require_relative 'nullpiece.rb'
+require_relative 'king.rb'
+require_relative 'queen.rb'
+
 class Board
 
     attr_reader :rows 
     def initialize
-        @null_piece = NullPiece.instance
-        @rows = Array.new(8){Array.new(8, @null_piece)}
+        # @null_piece = NullPiece.instance
+        @rows = Array.new(8){Array.new(8, NullPiece.instance.symbol)}
     end
 
     def [](pos)
