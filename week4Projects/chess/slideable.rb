@@ -1,7 +1,7 @@
 module Slideable
-    HORIZONTAL_DIRS = [[0,1], [0, -1]]
-    VERTICAL_DIRS = [[1,0], [-1, 0]]
-    DIAGNOL_DIRS = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
+    HORIZONTAL_DIRS = [[0,1], [0, -1]].freeze 
+    VERTICAL_DIRS = [[1,0], [-1, 0]].freeze 
+    DIAGNOL_DIRS = [[1, 1], [1, -1], [-1, 1], [-1, -1]].freeze 
 
     def horizontal_dirs
         HORIZONTAL_DIRS
@@ -50,5 +50,35 @@ module Slideable
             end
        end
         verticals 
+    end
+
+    # this helper method is only responsible for collecting all moves in a given direction
+    # the given direction is represented by two args, the combination of a dx and dy
+    def grow_unblocked_moves_in_dir(dx, dy)
+        # create an array to collect moves
+
+        arr = [] 
+        row, col = self.pos
+        
+        while true 
+            
+            row += dx
+            col += dy
+            new_position = [row, col]
+            if valid_position?(self.pos)
+                arr << new_position
+            elsif self.board.rows[pos[0]][pos[1]].color != self.board.rows[new_position[0]][new_position[1]].color
+                arr << new_position
+                break
+            else
+                break
+            end
+        end
+        arr 
+    end
+
+    def valid_position?(pos)
+        return false if self.board.rows[pos[0]][pos[1]].empty?
+        return false if pos[0] > 7 || pos[1] > 7 
     end
 end 

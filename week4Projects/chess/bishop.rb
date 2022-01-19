@@ -13,6 +13,6 @@ class Bishop < Piece
     end
 
     def move_dirs
-        diagonal_moves(pos[1])
+        diagonal_dirs 
     end
 end

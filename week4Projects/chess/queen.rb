@@ -13,8 +13,6 @@ class Queen < Piece
     end
 
     def move_dirs
-        horizontal_moves
-        vertical_moves(pos[1])
-        diagonal_moves(pos[1])
+        horizontal_dirs + vertical_dirs + diagonal_dirs
     end
 end

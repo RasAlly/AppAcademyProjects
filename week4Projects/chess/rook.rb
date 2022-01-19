@@ -13,7 +13,6 @@ class Rook < Piece
     end
 
     def move_dirs
-        horizontal_moves
-        vertical_moves(pos[1])
+        horizontal_dirs + vertical_dirs
     end
 end

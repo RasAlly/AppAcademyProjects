@@ -12,11 +12,11 @@ class Piece
     end
 
     def empty?
-        @board.rows.all?{|row| row.all?{|piece| piece == nil}}
+        @board.rows.all?{|row| row.all?{|piece| piece == NullPiece.instance}}
     end 
 
     def valid_moves
-        return true if @board.rows[@pos] == nil 
+        return true if @board.rows[@pos].empty?
         false 
     end
 
