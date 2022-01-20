@@ -1,12 +1,17 @@
 require_relative 'nullpiece.rb'
 require_relative 'king.rb'
 require_relative 'queen.rb'
+require_relative 'bishop.rb'
+require_relative 'knight.rb'
+require_relative 'pawn.rb'
+require_relative 'rook.rb'
+require 'colorize'
 
 class Board
 
     attr_reader :rows 
     def initialize
-        # @null_piece = NullPiece.instance
+        @null_piece = NullPiece.instance
         @rows = Array.new(8){Array.new(8, NullPiece.instance.symbol)}
     end
 
@@ -19,10 +24,11 @@ class Board
     end
 
     def move_piece(start_pos, end_pos)
-        raise 'there is no piece' if self[start_pos].nil?
-        if self[end_pos] == @null_piece
+        p self[start_pos]
+        raise 'there is no piece' if self[start_pos] == :_ 
+        if self[end_pos] == :_
             self[end_pos] = self[start_pos]
-            self[start_pos] = @null_piece
+            self[start_pos] = :_ 
         else
             raise 'You cannot move there'
         end

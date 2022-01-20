@@ -37,7 +37,7 @@ class Pawn < Piece
     end
 
     def side_attacks
-       dirs = [1, 1], [1, -1], [-1, 1], [-1, -1]]
+       dirs = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
         poss_attacks = []
 
         dirs.each do |dir|
