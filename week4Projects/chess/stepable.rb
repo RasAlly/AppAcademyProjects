@@ -11,8 +11,8 @@ module Stepable
     possibles
   end 
 
-  # def move_diffs(start_pos) ###not sure what this is supposed to do
-
-  # end 
+  def move_diffs(start_pos) 
+      raise NotImplementedError
+  end 
 
 end

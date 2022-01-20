@@ -15,6 +15,12 @@ module Slideable
         DIAGNOL_DIRS
     end
 
+    def moves
+        move_dirs.each do |dir|
+           grow_unblocked_moves_in_dir(dir[0], dir[1])
+        end
+    end
+
     def horizontal_moves 
         horizontals = [] 
         @board.rows.each_with_index do |row, i1|

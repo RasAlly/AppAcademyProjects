@@ -4,12 +4,8 @@ require_relative 'stepable'
 class Knight < Piece
   include Stepable 
 
-  def initialize(color, board, pos)
-    super 
-  end
-
   def symbol
-    return :KN
+    '♞'.colorize(color)
   end
 
   def move_diffs # Different moves a knight can do 

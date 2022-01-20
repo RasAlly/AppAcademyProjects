@@ -9,8 +9,8 @@ class NullPiece < Piece
     @symbol = :_ 
    end 
 
-  def moves 
-  end
+  # def moves 
+  # end
 
   def symbol
     @symbol

@@ -4,12 +4,8 @@ require_relative 'slideable.rb'
 class Bishop < Piece
     include Slideable
 
-    def initialize(color, board, pos)
-        super
-    end
-
     def symbol
-        return :B
+        '♝'.colorize(color)
     end
 
     def move_dirs

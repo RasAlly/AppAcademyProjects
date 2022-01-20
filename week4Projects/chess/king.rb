@@ -4,12 +4,8 @@ require_relative 'stepable.rb'
 class King < Piece
   include Stepable 
 
-  def initialize(color, board, pos)
-    super 
-  end
-
   def symbol
-    return :KI
+     '♚'.colorize(color)
   end
 
   def move_diffs 
