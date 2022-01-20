@@ -22,8 +22,15 @@ describe "my_transpose" do
             [0, 1, 2],
             [3, 4, 5],
             [6, 7, 8]
-          ] 
-          expected_arr = [[0, 3, 6], [1, 4, 7], [2, 5, 8]]
-       expect(my_transpose(arr1)).to eq(expected_arr) 
+        ] 
+        expected_arr = [[0, 3, 6], [1, 4, 7], [2, 5, 8]]
+    expect(my_transpose(arr1)).to eq(expected_arr) 
+    end
+end
+
+describe "stock_picker(arr)" do 
+    it "returns the pair of days with the lowest price and highest price" do
+        arr = [4, 10, 7, 13]
+        expect(stock_picker(arr)).to eq([4, 13])
     end
 end

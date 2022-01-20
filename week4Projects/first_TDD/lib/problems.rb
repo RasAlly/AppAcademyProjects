@@ -19,3 +19,8 @@ end
 def my_transpose(arr)
     arr.transpose
 end
+
+def stock_picker(arr)
+    sorted = arr.sort
+    pair = [sorted[0], sorted[-1]]
+end
