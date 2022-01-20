@@ -15,3 +15,7 @@ class Array
         sum
     end
 end
+
+def my_transpose(arr)
+    arr.transpose
+end
