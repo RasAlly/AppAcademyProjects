@@ -2,11 +2,13 @@ require "byebug"
 class Game
 
     attr_accessor :rod1, :rod2, :rod3
+    attr_reader :starting_rod
 
     def initialize
-        @rod1 = [1, 2, 3]
+        @rod1 = [1, 2, 3, 4, 5]
         @rod2 = []
         @rod3 = []
+        @starting_rod = @rod1.dup
     end
 
     # def print
@@ -78,6 +80,6 @@ class Game
 
     def won?
         rods = [rod1, rod2, rod3]
-        rods.any?{ |rod| (rod.length) == 3 && (rod == rod.sort) }
+        rods.any?{ |rod| (rod.length) == starting_rod.length && (rod == rod.sort) }
     end
 end
