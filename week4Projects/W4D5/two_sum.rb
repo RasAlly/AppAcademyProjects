@@ -42,27 +42,22 @@ end
 
 def two_sum?(arr, target_sum)
   hash = {}
-  arr.each_with_index do |ele, i|
-    if hash[ele]
-      hash[ele] << i
-    else
-      hash[ele] = [i]
-    end
+
+  arr.each do |ele|
+    hash[ele] = true
   end
-  i = 0
-  while i < arr.length
-    num = target_sum - arr[i]
-    return true if hash[num] && (hash[num] != hash[arr[i]])
-    i += 1
+
+  hash.each do |k, v|
+    return true if hash[(target_sum - k)] && k != target_sum - k
   end
   false
 end
 
 # O(n)
 
-# arr = [0, 1, 5, 7]
-# p two_sum?(arr, 6) # => should be true
-# p two_sum?(arr, 10) # => should be false
-# p two_sum?(arr, 14)
-# p two_sum?(arr, 8)
-# p two_sum?(arr, 1)
+arr = [0, 1, 5, 7]
+p two_sum?(arr, 6) # => should be true
+p two_sum?(arr, 10) # => should be false
+p two_sum?(arr, 14)
+p two_sum?(arr, 8)
+p two_sum?(arr, 1)
