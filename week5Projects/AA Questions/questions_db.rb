@@ -20,7 +20,7 @@ class Question
   end
 
   def self.find_by_id(id)
-    id = QuestionDBConnection.instances.execute(<<-SQL, id)
+    id = QuestionDBConnection.instance.execute(<<-SQL, id)
       SELECT
         *
       FROM
@@ -31,6 +31,20 @@ class Question
     return nil if id.length <= 0
 
     Question.new(id.first)
+  end
+
+  def self.find_by_author_id(author_id)
+    question = QuestionDBConnection.instance.execute(<<-SQL, author_id)
+    SELECT
+      *
+    FROM
+      questions
+    WHERE
+      associated_id = ?
+    SQL
+    return nil if question.length <= 0
+
+    Question.new(question.first)
   end
 
   def initialize(options)
@@ -52,7 +66,7 @@ class User
   end
 
   def self.find_by_id(id)
-    id = QuestionDBConnection.instances.execute(<<-SQL, id)
+    id = QuestionDBConnection.instance.execute(<<-SQL, id)
       SELECT
         *
       FROM
@@ -85,6 +99,11 @@ class User
     @lname = options['lname']
   end
 
+  def authored_questions
+    Question.find_by_author_id(id)
+    # temp.map { |datum| User.new(datum.) }
+  end
+
 end
 
 
@@ -99,7 +118,7 @@ class QuestionFollow
   end
 
   def self.find_by_id(id)
-    id = QuestionDBConnection.instances.execute(<<-SQL, id)
+    id = QuestionDBConnection.instance.execute(<<-SQL, id)
       SELECT
         *
       FROM
@@ -131,7 +150,7 @@ class Reply
   end
 
   def self.find_by_id(id)
-    id = QuestionDBConnection.instances.execute(<<-SQL, id)
+    id = QuestionDBConnection.instance.execute(<<-SQL, id)
       SELECT
         *
       FROM
@@ -143,6 +162,35 @@ class Reply
 
     Reply.new(id.first)
   end
+
+  def self.find_by_user_id(user_id)
+    id = QuestionDBConnection.instance.execute(<<-SQL, user_id)
+      SELECT
+        *
+      FROM
+        replies
+      WHERE
+        user_reply = ?
+    SQL
+    return nil if id.length <= 0
+
+    Reply.new(id.first)
+  end
+
+  def self.find_by_question_id(question_id)
+    id = QuestionDBConnection.instance.execute(<<-SQL, question_id)
+      SELECT
+        *
+      FROM
+        replies
+      WHERE
+        question_reply = ?
+    SQL
+    return nil if id.length <= 0
+
+    Reply.new(id.first)
+  end
+
 
   def initialize(options)
     @id = options['id']
@@ -164,7 +212,7 @@ class QuestionLike
   end
 
   def self.find_by_id(id)
-    id = QuestionDBConnection.instances.execute(<<-SQL, id)
+    id = QuestionDBConnection.instance.execute(<<-SQL, id)
       SELECT
         *
       FROM
