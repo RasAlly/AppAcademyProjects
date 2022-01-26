@@ -40,7 +40,7 @@ class Question
     FROM
       questions
     WHERE
-      associated_id = ?
+      associated_author = ?
     SQL
     return nil if question.length <= 0
 
@@ -52,6 +52,28 @@ class Question
     @title = options['title']
     @body = options['body']
     @associated_author = options['associated_author']
+  end
+
+  def author
+    name = QuestionDBConnection.instance.execute(<<-SQL, @associated_author)
+    SELECT
+      *
+    FROM
+      users
+    WHERE
+      id = ?
+    SQL
+    return nil if name.length <= 0
+
+    User.new(name.first)
+  end
+
+  def replies
+    Reply.find_by_question_id(@id)
+  end
+
+  def followers
+    QuestionFollow.followers_for_question_id(@id)
   end
 
 end
@@ -100,8 +122,16 @@ class User
   end
 
   def authored_questions
-    Question.find_by_author_id(id)
+    Question.find_by_author_id(@id)
     # temp.map { |datum| User.new(datum.) }
+  end
+
+  def authored_replies
+    Reply.find_by_user_id(@id)
+  end
+
+  def followed_questions
+    QuestionFollow.followed_questions_for_user_id(@id)
   end
 
 end
@@ -131,11 +161,45 @@ class QuestionFollow
     QuestionFollow.new(id.first)
   end
 
+  def self.followers_for_question_id(question_id)
+    user = QuestionDBConnection.instance.execute(<<-SQL, question_id )
+      SELECT
+        users.id, users.fname, users.lname
+      FROM
+        users
+      JOIN
+        question_follows ON users.id = question_follows.user_id
+      WHERE
+        question_id = ?
+    SQL
+    return nil if user.length <= 0
+
+    user.map { |datum| User.new(datum) }
+  end
+
+  def self.followed_questions_for_user_id(user_id)
+    question = QuestionDBConnection.instance.execute(<<-SQL, user_id )
+      SELECT
+        questions.id, questions.title, questions.body, questions.associated_author
+      FROM
+        questions
+      JOIN
+        question_follows ON questions.id = question_follows.question_id
+      WHERE
+        user_id = ?
+    SQL
+    return nil if question.length <= 0
+
+    question.map { |datum| Question.new(datum) }
+  end
+
   def initialize(options)
     @id = options['id']
     @user_id = options['user_id']
     @question_id = options['question_id']
   end
+
+
 
 end
 
@@ -198,6 +262,62 @@ class Reply
     @user_reply = options['user_reply']
     @reply_body = options['reply_body']
     @parent_id = options['parent_id']
+  end
+
+  def author
+    name = QuestionDBConnection.instance.execute(<<-SQL, @user_reply)
+      SELECT
+        *
+      FROM
+        users
+      WHERE
+        id = ?
+    SQL
+    return nil if name.length <= 0
+
+    User.new(name.first)
+  end
+
+  def question
+    question = QuestionDBConnection.instance.execute(<<-SQL, @question_reply)
+      SELECT
+        *
+      FROM
+        questions
+      WHERE
+        id = ?
+    SQL
+    return nil if question.length <= 0
+
+    question.map { |datum| Question.new(datum) }
+  end
+
+  def parent_reply
+    question = QuestionDBConnection.instance.execute(<<-SQL, @parent_id)
+      SELECT
+        *
+      FROM
+        replies
+      WHERE
+        id = ?
+    SQL
+    return nil if question.length <= 0
+
+    Reply.new(question.first)
+  end
+
+  def child_replies
+    question = QuestionDBConnection.instance.execute(<<-SQL, @id)
+    SELECT
+      *
+    FROM
+      replies
+    WHERE
+      parent_id = ?
+    SQL
+    return nil if question.length <= 0
+
+    question.map { |datum| Reply.new(datum) }
   end
 
 end
