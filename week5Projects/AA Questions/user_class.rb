@@ -64,17 +64,21 @@ class User
 
   def average_karma
     avg = QuestionDBConnection.instance.execute(<<-SQL, @id)
+      
       SELECT
-        COUNT(question_likes.user_like)
+        AVG(*)
       FROM
-        question_likes
-      JOIN
-        users ON users.id = question_likes.user_id
-      WHERE 
-        question_likes.user_id = ?
-      GROUP BY
-        question_likes.user_id
-      ORDER BY
+        (SELECT
+          COUNT(question_likes.user_like) as count_likes
+        FROM
+          question_likes
+        JOIN
+          users ON users.id = question_likes.user_id
+        WHERE 
+          question_likes.user_id = ?
+        GROUP BY
+          question_like.user_question)
+    
 
     SQL
   end
