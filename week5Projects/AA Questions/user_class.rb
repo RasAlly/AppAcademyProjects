@@ -58,4 +58,25 @@ class User
     QuestionFollow.followed_questions_for_user_id(@id)
   end
 
+  def liked_questions
+    QuestionLike.liked_questions_for_user_id(@id)
+  end
+
+  def average_karma
+    avg = QuestionDBConnection.instance.execute(<<-SQL, @id)
+      SELECT
+        COUNT(question_likes.user_like)
+      FROM
+        question_likes
+      JOIN
+        users ON users.id = question_likes.user_id
+      WHERE 
+        question_likes.user_id = ?
+      GROUP BY
+        question_likes.user_id
+      ORDER BY
+
+    SQL
+  end
+
 end
