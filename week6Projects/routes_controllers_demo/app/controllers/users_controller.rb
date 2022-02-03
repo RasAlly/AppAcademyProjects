@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  def index
-    # render plain: "I'm in the index action!"
+  def index # render plain: "I'm in the index action!"
     users = User.all
     render json: users
   end
@@ -16,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    users = User.find(params[:id])
+    user = User.find(params[:id])
     render json: users
   end
 
@@ -34,8 +33,8 @@ class UsersController < ApplicationController
     user = User.destroy(params[:id])
 
     if user
-      render plain: "user deleted!!!"
-      # redirect_to "/users"
+      # render plain: "user deleted!!!"
+      redirect_to "/users"
     else
       render json: user.errors.full_messages, status: :unprocessable_entity 
     end
