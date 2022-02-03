@@ -1,7 +1,15 @@
 class ArtworksController < ApplicationController
   def index
-    artworks = Artwork.all
-    render json: artworks
+    # render json: params
+    user = User.find(params[:user_id])
+    if user
+      artworks = user.artworks
+      artworks2 = user.shared_artworks
+
+      render json: artworks + artworks2
+    else
+      render json: user.errors.full_messages, status: 404
+    end
   end
 
   def create
