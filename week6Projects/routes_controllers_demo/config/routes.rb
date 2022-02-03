@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  # get 'likes/create'
+  # get 'likes/destroy'
+
   # get 'comments/create'
   # get 'comments/destroy'
   # get 'comments/index'
@@ -22,6 +25,7 @@ Rails.application.routes.draw do
   resources :users, except: [:new, :edit] do 
     resources :artworks, only: :index
     resources :comments, only: :index
+    resources :likes, only: :index
   end
 
   resources :artworks, except: [:new, :edit, :index] do
@@ -31,4 +35,6 @@ Rails.application.routes.draw do
   resources :artwork_shares, only: [:create, :destroy]
 
   resources :comments, only: [:destroy, :create]
+
+  resources :likes, only: [:create, :destroy]
 end

@@ -33,4 +33,8 @@ class Artwork < ApplicationRecord
 
   has_many :likes,
     as: :likeable
+
+  has_many :likers,
+    through: :likes,
+    source: :user
 end
