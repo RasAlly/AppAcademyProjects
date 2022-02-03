@@ -47,3 +47,10 @@ c7 = Comment.create!(body: "ggggggggggg",commenter_id: 7, commented_artwork_id: 
 c8 = Comment.create!(body: "hhhhhhhhh",commenter_id: 8, commented_artwork_id: 3)
 c9 = Comment.create!(body: "iiiiiiiiiiii",commenter_id: 9, commented_artwork_id: 8)
 c10 = Comment.create!(body: "jjjjjjjjjjj",commenter_id: 1, commented_artwork_id: 3)
+
+like1 = Like.create!(user_id: 1, likeable_id: 2, likeable_type: "Artwork")
+like2 = Like.create!(user_id: 1, likeable_id: 2, likeable_type: "Comment")
+like3 = Like.create!(user_id: 2, likeable_id: 1, likeable_type: "Artwork")
+like4 = Like.create!(user_id: 3, likeable_id: 1, likeable_type: "Artwork")
+like5 = Like.create!(user_id: 4, likeable_id: 2, likeable_type: "Comment")
+like6 = Like.create!(user_id: 5, likeable_id: 3, likeable_type: "Artwork")
