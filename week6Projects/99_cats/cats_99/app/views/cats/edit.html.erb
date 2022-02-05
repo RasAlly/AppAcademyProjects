@@ -1,0 +1,46 @@
+<form action="<%=cats_url %>" method="POST">
+<input type="hidden" name="_method" value="PATCH">
+
+  <label for="name">Name</label>
+  <input type="text" id="name" name="cat[name]" value="<%= @kitty.name %>">
+
+  <br>
+
+  <label>Birth_date:
+  <input type="date" name="cat[birth_date]" value="<%= @kitty.birth_date %>">
+  </label>
+
+  <br>
+
+<label>Color
+<select name="cat[color]">
+    <option disabled>-- Select Color --</option>
+    <option value="white" <%= @kitty.color == "white" ? "selected" : ""%>>White</option>
+    <option value="black"<%= @kitty.color == "black" ? "selected" : ""%>>Black</option>
+    <option value="brown"<%= @kitty.color == "brown" ? "selected" : ""%>>Brown</option>
+    <option value="taby"<%= @kitty.color == "taby" ? "selected" : ""%>>Taby</option>
+    <option value="grey"<%= @kitty.color == "grey" ? "selected" : ""%>>Grey</option>
+    <option value="orange"<%= @kitty.color == "orange" ? "selected" : ""%>>Orange</option>
+</select>
+</label>
+
+  <br>
+
+<label>Sex
+    <br>
+    <input type="radio" id="male" name="cat[sex]" value="M" <%= @kitty.sex == "M" ? "checked" : ""%>>
+    <label for="male">M</label><br> 
+    <input type="radio" id="female" name="cat[sex]" value="F"  <%= @kitty.sex == "F" ? "checked" : ""%>> 
+    <label for="female">F</label><br>
+</label>
+
+<label for="description">Description:
+  <textarea name="cat[description]">
+     <%= @kitty.description%>
+  </textarea>
+</label>
+<br>
+  <input type="submit" value="Update Cat">
+
+
+</form>
