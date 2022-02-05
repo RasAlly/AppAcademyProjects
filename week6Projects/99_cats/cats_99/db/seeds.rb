@@ -5,3 +5,23 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+ActiveRecord::Base.transaction do
+    Cat.delete_all
+
+    kitty1 = Cat.create!(
+        birth_date: '2002/03/20', 
+        color: 'white', 
+        name: 'Miso', 
+        sex: 'F', 
+        description: 'meow'
+    )
+
+    kitty2 = Cat.create!(
+        birth_date: '2010/08/23', 
+        color: 'brown', 
+        name: 'Finn', 
+        sex: 'M', 
+        description: 'bark'
+    )
+
+end
