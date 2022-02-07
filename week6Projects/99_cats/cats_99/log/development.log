@@ -606,3 +606,11 @@ Processing by CatsController#edit as HTML
 Completed 200 OK in 202ms (Views: 199.5ms | ActiveRecord: 0.9ms)
 
 
+Started GET "/cats" for ::1 at 2022-02-06 19:21:09 -0500
+  [1m[35m (2.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/RasBoss/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+
+ActiveRecord::PendingMigrationError - Migrations are pending. To resolve this issue, run:
+        bin/rails db:migrate RAILS_ENV=development:
+
+Started POST "/__better_errors/2d0f0e7bd52551b1/variables" for ::1 at 2022-02-06 19:21:10 -0500
