@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-  before_action :block_login_access
+  before_action :block_login_access, only: [:new, :create]
 
   def new
     @user = User.new

@@ -4,6 +4,15 @@ class User < ApplicationRecord
   validates :session_token, presence: true, uniqueness: true
   validates :password, length: {minimum: 6, allow_nil: true}
 
+  has_many :cats,
+  foreign_key: :user_id,
+  class_name: :Cat
+
+  has_many :cat_rental_requests,
+  foreign_key: :user_id,
+  class_name: :CatRentalRequest
+
+
   attr_reader :password
 
   after_initialize :ensure_session_token
@@ -28,6 +37,7 @@ class User < ApplicationRecord
     return nil if user.nil?
     user.is_password?(password) ? user : nil
   end
+
 
   def ensure_session_token
     self.session_token ||= SecureRandom::urlsafe_base64
