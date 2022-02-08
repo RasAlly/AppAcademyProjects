@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+  before_action :block_login_access
+
   def new
     @user = User.new
     render :new
