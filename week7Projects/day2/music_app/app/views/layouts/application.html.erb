@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MusicApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <style>
+    header {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      background: #FAF0E6;
+      color: #5F9EA0;
+      font: 50px sans-serif;
+    }
+    body {
+      background: #FFEBCD;
+    }
+
+    .logout{
+      display: flex;
+      flex-direction: row;
+      justify-content: right;
+      color: #5F9EA0;
+    }
+
+    .login{
+      color: black;
+      background-color: white;
+      border-radius: 100%;
+    }
+
+    .signup{
+      color: black;
+      background-color: white;
+      border-radius: 100%;
+    }
+  </style>
+    <header><a href="<%= bands_url%>">Music App</a></header>
+
+    <% if logged_in? %>
+        <form action="<%= session_url %>" method="POST" class="logout">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <input type="hidden" name="_method" value="DELETE">
+          <input type="submit" value="Sign Out" class="logout">
+        </form>
+    <% else %>
+      <a href="<%= new_session_url %>"class="login">Log In</a>
+      <a href="<%= new_user_url %>"class="signup">Sign Up</a>
+    <% end %>
+    
+
+    <%= yield %>
+    
+    <% if flash[:errors] %>
+      <ul>
+      <% flash[:errors].each do |error| %>
+          <li><%= error %></li>
+      <% end %>
+      </ul>
+    <% end %>
+    
+  </body>
+</html>
