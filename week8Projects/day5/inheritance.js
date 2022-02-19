@@ -1,17 +1,25 @@
 Function.prototype.inherits = function(method) {
 
-  function Surrogate() {}
-  Surrogate.prototype = method.prototype
-  this.prototype = new Surrogate()
-  this.prototype.constructor = this
+  // function Surrogate() {};
+  // Surrogate.prototype = method.prototype
+  // this.prototype = new Surrogate();
+  // this.prototype.constructor = this;
+
+  this.prototype = Object.create(method.prototype)
+  this.prototype.constructor = this;
   
 }
 
 
-// function MovingObject () {}
+function MovingObject () {};
 
-// function Ship () {}
-// Ship.inherits(MovingObject);
+MovingObject.prototype.isMoving = function() {
+  console.log("it's movingg")
+}
 
-// function Asteroid () {}
-// Asteroid.inherits(MovingObject);
+function Ship () {};
+Ship.inherits(MovingObject);
+
+
+function Asteroid () {};
+Asteroid.inherits(MovingObject); 
