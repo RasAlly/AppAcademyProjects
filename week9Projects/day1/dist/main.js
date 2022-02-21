@@ -9,13 +9,23 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/asteroid.js":
+/*!*************************!*\
+  !*** ./src/asteroid.js ***!
+  \*************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const MovingObject = __webpack_require__(/*! ./moving_object */ \"./src/moving_object.js\")\nconst Util = __webpack_require__(/*! ./util */ \"./src/util.js\")\n\n\nfunction Asteroid(options) {\n    options.pos = options.pos\n    options.color = 'blue'\n    options.radius = 30\n    options.vel = [10, 10]\n    MovingObject.call(this, options)\n}\n\nUtil.inherits(Asteroid, MovingObject)\n\n\n// new MovingObject\n\nmodule.exports = Asteroid;\n\n//# sourceURL=webpack://day1/./src/asteroid.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("console.log(\"hello\");\nconst MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nwindow.MovingObject = MovingObject;\n\n//# sourceURL=webpack://day1/./src/index.js?");
+eval("const Asteroid = __webpack_require__(/*! ./asteroid.js */ \"./src/asteroid.js\")\nconst MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nconst mo = new MovingObject({\n    pos: [30, 30],\n    vel: [10, 10],\n    radius: 5,\n    color: \"#00FF00\"\n});\n  \n\ndocument.addEventListener(\"DOMContentLoaded\", function(){\n    const canvasEl = document.getElementById(\"game-canvas\");\n  \n    const ctx = canvasEl.getContext(\"2d\");\n\n    window.ctx = ctx;\n\n    // mo.draw(ctx)\n    window.MovingObject = MovingObject;\n\n    window.Asteroid = Asteroid;\n\n});\n\n\n//# sourceURL=webpack://day1/./src/index.js?");
 
 /***/ }),
 
@@ -25,7 +35,17 @@ eval("console.log(\"hello\");\nconst MovingObject = __webpack_require__(/*! ./mo
   \******************************/
 /***/ ((module) => {
 
-eval("function MovingObject(obj) {\n  this.pos = obj['pos'];\n  this.vel = obj['vel'];\n  this.radius = obj['radius'];\n  this.color = obj['color'];\n}\n\nmodule.exports = MovingObject;\n\n//# sourceURL=webpack://day1/./src/moving_object.js?");
+eval("function MovingObject(obj) {\n  this.pos = obj['pos'];\n  this.vel = obj['vel'];\n  this.radius = obj['radius'];\n  this.color = obj['color'];\n}\n\nMovingObject.prototype.draw = function(ctx) {\n  ctx.beginPath();\n  ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2*Math.PI, true);\n  ctx.lineWidth = 5;\n  ctx.stroke();\n  ctx.fillStyle = this.color;\n  ctx.fill();\n}\n\n\nmodule.exports = MovingObject;\n\n//# sourceURL=webpack://day1/./src/moving_object.js?");
+
+/***/ }),
+
+/***/ "./src/util.js":
+/*!*********************!*\
+  !*** ./src/util.js ***!
+  \*********************/
+/***/ ((module) => {
+
+eval("const Util = {\n    inherits(childClass, parentClass) {\n        function Surrogate(){}\n        Surrogate.prototype = parentClass.prototype\n        childClass.prototype = new Surrogate()\n        childClass.prototype.constructor = childClass\n    }\n};\n  \nmodule.exports = Util;\n\n//# sourceURL=webpack://day1/./src/util.js?");
 
 /***/ })
 

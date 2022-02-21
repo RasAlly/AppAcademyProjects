@@ -5,20 +5,14 @@ function MovingObject(obj) {
   this.color = obj['color'];
 }
 
-MovingObect.prototype.draw = function(ctx) {
-  document.addEventListener("DOMContentLoaded", function(){
-    const canvasEl = document.getElementById("game-canvas");
-  
-    const ctx = canvasEl.getContext("2d");
-  
-    ctx.beginPath();
-    ctx.arc(100, 100, 90, 0, 2*Math.PI, true);
-    ctx.strokeStyle = "green";
-    ctx.lineWidth = 5;
-    ctx.stroke();
-    ctx.fillStyle = "blue";
-    ctx.fill();
-  });
+MovingObject.prototype.draw = function(ctx) {
+  ctx.beginPath();
+  ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2*Math.PI, true);
+  ctx.lineWidth = 5;
+  ctx.stroke();
+  ctx.fillStyle = this.color;
+  ctx.fill();
 }
+
 
 module.exports = MovingObject;
