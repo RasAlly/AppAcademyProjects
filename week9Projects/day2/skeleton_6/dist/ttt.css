@@ -4,6 +4,12 @@ html, body, figure, ul, li, h1 {
   border: 0px;
 }
 
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 ul {
   display: flex;
   width: 405px;
@@ -61,4 +67,14 @@ li:hover {
 .x-winner:hover,
 .o-winner:hover {
   background-color: rgb(12, 135, 96);
+}
+
+input[type=submit] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 200px;
+  height: 40px;
+  font-size: 20px;
 }

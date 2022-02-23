@@ -48,10 +48,24 @@ class View {
         marks.forEach(ele => {
           ele.classList.add(player+"-winner")
         })
+        this.newGameButton();
         alert(`${player} has won!`);
       }
       this.grid.removeEventListener("click", this.handleClick)
     };
+  }
+
+  newGameButton() {
+    let button = document.createElement("input");
+    button.type = "submit";
+    button.value = "Restart Game";
+    button.addEventListener("click", this.newGame);
+    this.grid.append(button);
+  }
+
+  newGame() {
+    this.game = new Game();
+    location.reload();
   }
 
 }
