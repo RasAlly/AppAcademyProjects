@@ -43,7 +43,9 @@ class View {
     if (this.game.isOver()) {
       if (this.game.winner() === null) {
         alert(`It's a tie!`)
-      } else {
+        this.newGameButton();
+      }
+      else {
         const marks = document.querySelectorAll(`.${player}`)
         marks.forEach(ele => {
           ele.classList.add(player+"-winner")

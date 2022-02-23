@@ -1,1 +1,96 @@
-(()=>{var t={489:(t,e,r)=>{const n=r(375);t.exports=class{constructor(t,e){this.game=t,this.grid=e,this.handleClick=this.handleClick.bind(this),this.setupBoard(),this.bindEvents()}setupBoard(){const t=document.createElement("ul");for(let e=0;e<3;e++)for(let r=0;r<3;r++){let n=document.createElement("li");n.dataset.location=JSON.stringify([e,r]),t.append(n)}this.grid.append(t)}bindEvents(){this.grid.addEventListener("click",this.handleClick)}handleClick(t){const e=t.target;"LI"===e.nodeName&&this.makeMove(e)}makeMove(t){const e=JSON.parse(t.dataset.location),r=this.game.currentPlayer;try{this.game.playMove(e)}catch(t){alert(t.msg)}t.classList.add(r),this.game.isOver()&&(null===this.game.winner()?alert("It's a tie!"):(document.querySelectorAll(`.${r}`).forEach((t=>{t.classList.add(r+"-winner")})),this.newGameButton(),alert(`${r} has won!`)),this.grid.removeEventListener("click",this.handleClick))}newGameButton(){let t=document.createElement("input");t.type="submit",t.value="Restart Game",t.addEventListener("click",this.newGame),this.grid.append(t)}newGame(){this.game=new n,location.reload()}}},504:(t,e,r)=>{const n=r(564);class s{constructor(){this.grid=s.makeGrid()}isEmptyPos(t){if(!s.isValidPos(t))throw new n("Is not valid position!");return null===this.grid[t[0]][t[1]]}isOver(){if(null!=this.winner())return!0;for(let t=0;t<3;t++)for(let e=0;e<3;e++)if(this.isEmptyPos([t,e]))return!1;return!0}placeMark(t,e){if(!this.isEmptyPos(t))throw new n("Is not an empty position!");this.grid[t[0]][t[1]]=e}print(){const t=[];for(let e=0;e<3;e++){const r=[];for(let t=0;t<3;t++)r.push(this.grid[e][t]?this.grid[e][t]:" ");t.push(`${r.join("|")}\n`)}console.log(t.join("-----\n"))}winner(){const t=[[[0,0],[0,1],[0,2]],[[1,0],[1,1],[1,2]],[[2,0],[2,1],[2,2]],[[0,0],[1,0],[2,0]],[[0,1],[1,1],[2,1]],[[0,2],[1,2],[2,2]],[[0,0],[1,1],[2,2]],[[2,0],[1,1],[0,2]]];for(let e=0;e<t.length;e++){const r=this.winnerHelper(t[e]);if(null!=r)return r}return null}winnerHelper(t){for(let e=0;e<s.marks.length;e++){const r=s.marks[e];let n=!0;for(let e=0;e<3;e++){const s=t[e];this.grid[s[0]][s[1]]!=r&&(n=!1)}if(n)return r}return null}static isValidPos(t){return 0<=t[0]&&t[0]<3&&0<=t[1]&&t[1]<3}static makeGrid(){const t=[];for(let e=0;e<3;e++){t.push([]);for(let r=0;r<3;r++)t[e].push(null)}return t}}s.marks=["x","o"],t.exports=s},375:(t,e,r)=>{const n=r(504),s=r(564);t.exports=class{constructor(){this.board=new n,this.currentPlayer=n.marks[0]}isOver(){return this.board.isOver()}playMove(t){this.board.placeMark(t,this.currentPlayer),this.swapTurn()}promptMove(t,e){this.board.print(),console.log(`Current Turn: ${this.currentPlayer}`),t.question("Enter rowIdx: ",(r=>{const n=parseInt(r);t.question("Enter colIdx: ",(t=>{const r=parseInt(t);e([n,r])}))}))}run(t,e){this.promptMove(t,(r=>{try{this.playMove(r)}catch(t){if(!(t instanceof s))throw t;console.log(t.msg)}this.isOver()?(this.board.print(),this.winner()?console.log(`${this.winner()} has won!`):console.log("NO ONE WINS!"),e()):this.run(t,e)}))}swapTurn(){this.currentPlayer===n.marks[0]?this.currentPlayer=n.marks[1]:this.currentPlayer=n.marks[0]}winner(){return this.board.winner()}}},564:t=>{t.exports=function(t){this.msg=t}}},e={};function r(n){var s=e[n];if(void 0!==s)return s.exports;var i=e[n]={exports:{}};return t[n](i,i.exports,r),i.exports}(()=>{const t=r(489),e=r(375);document.addEventListener("DOMContentLoaded",(()=>{let r=new e;const n=document.querySelector(".ttt");window.View=new t(r,n)}))})()})();
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const View = __webpack_require__(/*! ./ttt-view.js */ \"./src/ttt-view.js\");\nconst Game = __webpack_require__(/*! ../../../../../../../../ttt_node/game.js */ \"./ttt_node/game.js\");\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n  let game = new Game();\n  const container = document.querySelector('.ttt');\n  window.View = new View(game, container);\n});\n\n\n//# sourceURL=webpack://skeleton_6/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/ttt-view.js":
+/*!*************************!*\
+  !*** ./src/ttt-view.js ***!
+  \*************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const Game = __webpack_require__(/*! ../ttt_node/game */ \"./ttt_node/game.js\");\n\nclass View {\n  constructor(game, el) {\n    this.game = game;\n    this.grid = el;\n    this.handleClick = this.handleClick.bind(this);\n    this.setupBoard();\n    this.bindEvents();\n  }\n\n  setupBoard() {  \n    const list = document.createElement(\"ul\");\n    for (let i = 0; i < 3; i++) {\n      for (let j = 0; j < 3; j++) {\n        let square = document.createElement(\"li\");\n        square.dataset.location = JSON.stringify([i, j]),\n        list.append(square);\n      }\n    }\n    this.grid.append(list)\n  }\n  \n  bindEvents() {\n    this.grid.addEventListener(\"click\", this.handleClick);\n  }\n\n  handleClick(e) {\n    const grid = e.target\n    \"LI\" === grid.nodeName && this.makeMove(grid);\n  }\n\n  makeMove(square) {\n    const location = JSON.parse(square.dataset.location);\n    const player = this.game.currentPlayer;\n    try {\n      this.game.playMove(location)\n    }\n    catch(square){\n      alert(square.msg)\n    }\n    square.classList.add(player);\n    if (this.game.isOver()) {\n      if (this.game.winner() === null) {\n        alert(`It's a tie!`)\n        this.newGameButton();\n      }\n      else {\n        const marks = document.querySelectorAll(`.${player}`)\n        marks.forEach(ele => {\n          ele.classList.add(player+\"-winner\")\n        })\n        this.newGameButton();\n        alert(`${player} has won!`);\n      }\n      this.grid.removeEventListener(\"click\", this.handleClick)\n    };\n  }\n\n  newGameButton() {\n    let button = document.createElement(\"input\");\n    button.type = \"submit\";\n    button.value = \"Restart Game\";\n    button.addEventListener(\"click\", this.newGame);\n    this.grid.append(button);\n  }\n\n  newGame() {\n    this.game = new Game();\n    location.reload();\n  }\n\n}\n\nmodule.exports = View;\n\n\n//# sourceURL=webpack://skeleton_6/./src/ttt-view.js?");
+
+/***/ }),
+
+/***/ "./ttt_node/board.js":
+/*!***************************!*\
+  !*** ./ttt_node/board.js ***!
+  \***************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const MoveError = __webpack_require__(/*! ./moveError */ \"./ttt_node/moveError.js\");\n\nclass Board {\n  constructor() {\n    this.grid = Board.makeGrid();\n  }\n\n  isEmptyPos(pos) {\n    if (!Board.isValidPos(pos)) {\n      throw new MoveError('Is not valid position!');\n    }\n\n    return (this.grid[pos[0]][pos[1]] === null);\n  }\n\n  isOver() {\n    if (this.winner() != null) {\n      return true;\n    }\n\n    for (let rowIdx = 0; rowIdx < 3; rowIdx++) {\n      for (let colIdx = 0; colIdx < 3; colIdx++) {\n        if (this.isEmptyPos([rowIdx, colIdx])) {\n          return false;\n        }\n      }\n    }\n\n    return true;\n  }\n\n  placeMark(pos, mark) {\n    if (!this.isEmptyPos(pos)) {\n      throw new MoveError('Is not an empty position!');\n    }\n\n    this.grid[pos[0]][pos[1]] = mark;\n  }\n\n  print() {\n    const strs = [];\n    for (let rowIdx = 0; rowIdx < 3; rowIdx++) {\n      const marks = [];\n      for (let colIdx = 0; colIdx < 3; colIdx++) {\n        marks.push(\n          this.grid[rowIdx][colIdx] ? this.grid[rowIdx][colIdx] : \" \"\n        );\n      }\n      strs.push(`${marks.join('|')}\\n`);\n    }\n\n    console.log(strs.join('-----\\n'));\n  }\n\n  winner() {\n    const posSeqs = [\n      // horizontals\n      [[0, 0], [0, 1], [0, 2]],\n      [[1, 0], [1, 1], [1, 2]],\n      [[2, 0], [2, 1], [2, 2]],\n      // verticals\n      [[0, 0], [1, 0], [2, 0]],\n      [[0, 1], [1, 1], [2, 1]],\n      [[0, 2], [1, 2], [2, 2]],\n      // diagonals\n      [[0, 0], [1, 1], [2, 2]],\n      [[2, 0], [1, 1], [0, 2]]\n    ];\n\n    for (let i = 0; i < posSeqs.length; i++) {\n      const winner = this.winnerHelper(posSeqs[i]);\n      if (winner != null) {\n        return winner;\n      }\n    }\n\n    return null;\n  }\n\n  winnerHelper(posSeq) {\n    for (let markIdx = 0; markIdx < Board.marks.length; markIdx++) {\n      const targetMark = Board.marks[markIdx];\n      let winner = true;\n      for (let posIdx = 0; posIdx < 3; posIdx++) {\n        const pos = posSeq[posIdx];\n        const mark = this.grid[pos[0]][pos[1]];\n\n        if (mark != targetMark) {\n          winner = false;\n        }\n      }\n\n      if (winner) {\n        return targetMark;\n      }\n    }\n\n    return null;\n  }\n\n  static isValidPos(pos) {\n    return (0 <= pos[0]) &&\n    (pos[0] < 3) &&\n    (0 <= pos[1]) &&\n    (pos[1] < 3);\n  }\n\n  static makeGrid() {\n    const grid = [];\n\n    for (let i = 0; i < 3; i++) {\n      grid.push([]);\n      for (let j = 0; j < 3; j++) {\n        grid[i].push(null);\n      }\n    }\n\n    return grid;\n  }\n}\n\nBoard.marks = ['x', 'o'];\n\nmodule.exports = Board;\n\n\n//# sourceURL=webpack://skeleton_6/./ttt_node/board.js?");
+
+/***/ }),
+
+/***/ "./ttt_node/game.js":
+/*!**************************!*\
+  !*** ./ttt_node/game.js ***!
+  \**************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const Board = __webpack_require__(/*! ./board */ \"./ttt_node/board.js\");\nconst MoveError = __webpack_require__(/*! ./moveError */ \"./ttt_node/moveError.js\");\n\nclass Game {\n  constructor() {\n    this.board = new Board();\n    this.currentPlayer = Board.marks[0];\n  }\n\n  isOver() {\n    return this.board.isOver();\n  }\n\n  playMove(pos) {\n    this.board.placeMark(pos, this.currentPlayer);\n    this.swapTurn();\n  }\n\n  promptMove(reader, callback) {\n    const game = this;\n\n    this.board.print();\n    console.log(`Current Turn: ${this.currentPlayer}`);\n\n    reader.question('Enter rowIdx: ', rowIdxStr => {\n      const rowIdx = parseInt(rowIdxStr);\n      reader.question('Enter colIdx: ', colIdxStr => {\n        const colIdx = parseInt(colIdxStr);\n        callback([rowIdx, colIdx]);\n      });\n    });\n  }\n\n  run(reader, gameCompletionCallback) {\n    this.promptMove(reader, move => {\n      try {\n        this.playMove(move);\n      } catch (e) {\n        if (e instanceof MoveError) {\n          console.log(e.msg);\n        } else {\n          throw e;\n        }\n      }\n\n      if (this.isOver()) {\n        this.board.print();\n        if (this.winner()) {\n          console.log(`${this.winner()} has won!`);\n        } else {\n          console.log('NO ONE WINS!');\n        }\n        gameCompletionCallback();\n      } else {\n        // continue loop\n        this.run(reader, gameCompletionCallback);\n      }\n    });\n  }\n\n  swapTurn() {\n    if (this.currentPlayer === Board.marks[0]) {\n      this.currentPlayer = Board.marks[1];\n    } else {\n      this.currentPlayer = Board.marks[0];\n    }\n  }\n\n  winner() {\n    return this.board.winner();\n  }\n}\n\nmodule.exports = Game;\n\n\n//# sourceURL=webpack://skeleton_6/./ttt_node/game.js?");
+
+/***/ }),
+
+/***/ "./ttt_node/moveError.js":
+/*!*******************************!*\
+  !*** ./ttt_node/moveError.js ***!
+  \*******************************/
+/***/ ((module) => {
+
+eval("\nconst MoveError = function (msg) { this.msg = msg; };\n\n// MoveError really should be a child class of the built in Error object provided\n// by Javascript, but since we haven't covered inheritance yet, we'll just\n// let it be a vanilla Object for now!\n\nmodule.exports = MoveError;\n\n\n//# sourceURL=webpack://skeleton_6/./ttt_node/moveError.js?");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	
+/******/ })()
+;
