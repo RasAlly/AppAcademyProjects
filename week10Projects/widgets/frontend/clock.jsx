@@ -1,4 +1,5 @@
 import React from 'react';
+import Tabs from './tabs';
 
 class Clock extends React.Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class Clock extends React.Component {
       <div>
         <h1>Clock</h1>
         <p className="timer">{hours}::{mins}::{secs}</p>
+        
       </div>
     )
   }
