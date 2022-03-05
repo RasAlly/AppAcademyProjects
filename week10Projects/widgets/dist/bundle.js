@@ -79,7 +79,9 @@ var Clock = /*#__PURE__*/function (_React$Component) {
       var hours = this.state.time.getHours();
       var mins = this.state.time.getMinutes();
       var secs = this.state.time.getSeconds();
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Clock"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "clock"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Clock"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
         className: "timer"
       }, hours, "::", mins, "::", secs));
     }
