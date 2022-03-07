@@ -59,7 +59,7 @@ var Board = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "grid"
+        className: "row"
       }, this.renderRows());
     }
   }, {
@@ -151,21 +151,52 @@ var Game = /*#__PURE__*/function (_React$Component) {
       board: newBoard
     };
     _this.updateGame = _this.updateGame.bind(_assertThisInitialized(_this));
+    _this.restartGame = _this.restartGame.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Game, [{
     key: "updateGame",
-    value: function updateGame() {}
+    value: function updateGame(tile, flagged) {
+      if (flagged) {
+        tile.toggleFlag();
+      } else {
+        tile.explore();
+      }
+
+      this.setState({
+        board: this.state.board
+      });
+    }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-        className: "board"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_board__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        board: this.state.board,
-        updateGame: this.updateGame
-      }));
+      var board = this.state.board;
+
+      if (board.won()) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "You won!", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+          onClick: this.restartGame
+        }, "Restart Game"));
+      } else if (board.lost()) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "You lost", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+          onClick: this.restartGame
+        }, "Restart Game"));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          className: "board"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_board__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          board: this.state.board,
+          updateGame: this.updateGame
+        }));
+      }
+    }
+  }, {
+    key: "restartGame",
+    value: function restartGame() {
+      var newBoard = new _minesweeper_2__WEBPACK_IMPORTED_MODULE_0__.Board(9, 10);
+      this.setState = {
+        board: newBoard
+      };
     }
   }]);
 
@@ -355,6 +386,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _minesweeper_2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./minesweeper_2 */ "./components/minesweeper_2.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -379,26 +411,68 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Tile = /*#__PURE__*/function (_React$Component) {
   _inherits(Tile, _React$Component);
 
   var _super = _createSuper(Tile);
 
-  function Tile() {
+  function Tile(props) {
+    var _this;
+
     _classCallCheck(this, Tile);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(Tile, [{
     key: "handleClick",
-    value: function handleClick() {}
+    value: function handleClick(e) {
+      e.preventDefault();
+
+      if (e.altKey) {
+        this.props.updateGame(this.props.tile, true);
+      } else {
+        this.props.updateGame(this.props.tile, false);
+      }
+    }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "tile"
-      }, "tile");
+      var tile = this.props.tile;
+
+      if (tile.bombed) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "tile",
+          onClick: this.handleClick
+        }, "b");
+      } else if (tile.flagged) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "tile",
+          onClick: this.handleClick
+        }, "f");
+      } else if (tile.explored) {
+        var num = tile.adjacentBombCount();
+
+        if (num > 1) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "tile",
+            onClick: this.handleClick
+          }, num);
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "tile",
+            onClick: this.handleClick
+          }, "1");
+        }
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "tile",
+          onClick: this.handleClick
+        });
+      }
     }
   }]);
 
