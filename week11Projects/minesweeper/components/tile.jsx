@@ -18,9 +18,9 @@ class Tile extends React.Component {
 
   render() {
     const tile = this.props.tile
-    if (tile.bombed) {
+    if (tile.bombed && tile.explored) {
       return(
-        <div className="tile" onClick={this.handleClick}>
+        <div className="tile" onClick={this.handleClick} >
           b
         </div>
       )

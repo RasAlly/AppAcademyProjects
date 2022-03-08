@@ -174,13 +174,27 @@ var Game = /*#__PURE__*/function (_React$Component) {
       var board = this.state.board;
 
       if (board.won()) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "You won!", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          className: "board"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_board__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          board: this.state.board,
+          updateGame: this.updateGame
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          className: "modal-content"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "You Win!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
           onClick: this.restartGame
-        }, "Restart Game"));
+        }, "Restart Game")));
       } else if (board.lost()) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "You lost", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          className: "board"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_board__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          board: this.state.board,
+          updateGame: this.updateGame
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          className: "modal-content"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "You Lose!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
           onClick: this.restartGame
-        }, "Restart Game"));
+        }, "Restart Game")));
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "board"
@@ -194,9 +208,9 @@ var Game = /*#__PURE__*/function (_React$Component) {
     key: "restartGame",
     value: function restartGame() {
       var newBoard = new _minesweeper_2__WEBPACK_IMPORTED_MODULE_0__.Board(9, 10);
-      this.setState = {
+      this.setState({
         board: newBoard
-      };
+      });
     }
   }]);
 
@@ -443,7 +457,7 @@ var Tile = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var tile = this.props.tile;
 
-      if (tile.bombed) {
+      if (tile.bombed && tile.explored) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "tile",
           onClick: this.handleClick

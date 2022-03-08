@@ -25,17 +25,29 @@ class Game extends React.Component {
     if (board.won()) {
       return (
         <div>
-          You won!
-          <br />
+        <div className="board">
+          <Board board={this.state.board} updateGame={this.updateGame}/>
+        </div>
+
+
+        <div className="modal-content">
+          <p>You Win!</p>
           <button onClick={this.restartGame}>Restart Game</button>
         </div>
+      </div>
       )
     } else if (board.lost()) {
       return (
         <div>
-          You lost
-          <br />
-          <button onClick={this.restartGame}>Restart Game</button>
+          <div className="board">
+            <Board board={this.state.board} updateGame={this.updateGame}/>
+          </div>
+
+
+          <div className="modal-content">
+            <p>You Lose!</p>
+            <button onClick={this.restartGame}>Restart Game</button>
+          </div>
         </div>
       )
     } else {
@@ -48,8 +60,9 @@ class Game extends React.Component {
   }
 
   restartGame() {
+
     const newBoard = new MineSweeper.Board(9, 10);
-    this.setState = { board: newBoard }; 
+    this.setState({ board: newBoard }) 
   }
 }
 
