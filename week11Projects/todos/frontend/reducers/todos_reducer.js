@@ -1,5 +1,5 @@
-import {receiveTodos, receiveTodo} from '../actions/todo_actions';
-import { RECEIVE_TODO, RECEIVE_TODOS } from '../actions/todo_actions';
+import {receiveTodos, receiveTodo, removeTodo} from '../actions/todo_actions';
+import { RECEIVE_TODO, RECEIVE_TODOS, REMOVE_TODO } from '../actions/todo_actions';
 
 const initialState = {
   1: {
@@ -16,19 +16,6 @@ const initialState = {
   }
 };
 
-// [{
-//   id: 1,
-//   title: "wash car",
-//   body: "with soap",
-//   done: false
-// },
-// {
-//   id: 2,
-//   title: "wash dog",
-//   body: "with shampoo",
-//   done: true
-// }]
-
 const todosReducer = (state = initialState, action) => {
   Object.freeze(state);
   const nextState = Object.assign({}, state);
@@ -43,6 +30,9 @@ const todosReducer = (state = initialState, action) => {
       return obj;
     case RECEIVE_TODO:
       nextState[action.todos.id] = action.todos
+      return nextState;
+    case REMOVE_TODO:
+      delete nextState[action.todos.id]
       return nextState;
     default:
       return state;
