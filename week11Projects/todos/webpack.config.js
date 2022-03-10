@@ -3,7 +3,9 @@ var path = require('path');
 module.exports = {
   entry: './frontend/todo_redux.jsx',
   output: {
-    filename: '../bundle.js',
+    // bundle and bundle.map now need to render in the javascripts folder in rails
+    path: path.resolve(__dirname, 'app', 'assets', 'javascripts'), 
+    filename: './bundle.js',
   },
   module: {
     rules: [
