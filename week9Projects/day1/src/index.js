@@ -1,4 +1,5 @@
 const Asteroid = require('./asteroid.js')
+const Game = require('./game.js')
 const MovingObject = require("./moving_object.js");
 
 const mo = new MovingObject({
@@ -16,6 +17,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
     window.ctx = ctx;
 
+    let game = new Game();
+    window.game = game;
     // mo.draw(ctx)
     window.MovingObject = MovingObject;
 

@@ -5,8 +5,8 @@ const DIM_Y = 500;
 const NUM_ASTEROIDS = 20;
 
 function Game() {
-  this.addAsteroids();
   this.asteroids = []
+  this.addAsteroids();
 }
 
 
@@ -15,19 +15,6 @@ Game.prototype.addAsteroids = function () {
     let a = new Asteroid(this.randomPosition())
     this.asteroids.push(a);
   }
-}
-
-Game.prototype.draw = function(ctx) {
-  ctx.clearRect(0, 0, DIM_X, DIM_Y);
-  this.asteroids.forEach(a => {
-    a.draw(ctx);
-  })
-}
-
-Game.prototype.moveObjects = function () {
-  this.asteroids.forEach(a => {
-    
-  })
 }
 
 Game.prototype.randomPosition = function () {
@@ -39,3 +26,18 @@ Game.prototype.randomPosition = function () {
   return arr;
 }
 
+Game.prototype.draw = function(ctx) {
+  ctx.clearRect(0, 0, DIM_X, DIM_Y);
+  this.asteroids.forEach(a => {
+    a.draw(ctx);
+  })
+}
+
+Game.prototype.moveObjects = function () {
+  this.asteroids.forEach(a => {
+    a.pos = [a.pos[0] + 1, a.pos[1] + 1]
+  })
+}
+
+
+module.exports = Game;
